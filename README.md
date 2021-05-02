@@ -1,2 +1,2 @@
 # QR-robotika
-:)
+:D
