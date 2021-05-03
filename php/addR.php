@@ -6,29 +6,29 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   exit;
 }
 require_once "connect.php";
-$stmt = $link->prepare("INSERT INTO zaznamy (cesta, km) VALUES (?, ?);");
-$stmt->bind_param("sd", $cesta, $km);
+require_once('../Hashids/HashGenerator.php');
+require_once('../Hashids/Hashids.php');
+
+$stmt = $link->prepare("INSERT INTO zaznamy (hash, cesta, km) VALUES (?, ?, ?);");
+$stmt->bind_param("ssd", $cesta, $km);
 
 $cesta = $_REQUEST["c"];
 $km = $_REQUEST["km"];
-
 
 //$hash = hash ( 'md5' , $id , double $binary = false );
 
 $stmt->execute();
 $stmt->close();
-/*
-$stmt = $link->prepare("SELECT  FROM zaznamy (cesta, km) VALUES (?, ?)");
+
+$stmt = $link->prepare("INSERT INTO zaznamy (hash) VALUES (?, ?)");
 $stmt->bind_param("sd", $cesta, $km);
 
-require_once('../Hashids/HashGenerator.php');
-require_once('../Hashids/Hashids.php');
 $hashids = new Hashids\Hashids('Testing Testiing', 10);
 $id = $hashids->encode(1337);
 var_dump($id);
 
 $stmt->execute();
-$stmt->close();*/
+$stmt->close();
 
 $stmt = $link->prepare("INSERT INTO connT (users, zaznamy) VALUES (?, ?);");
 $stmt->bind_param("ii", $UserH, $ZaznamyH);
@@ -42,7 +42,6 @@ echo $UserH;
 
 $stmt->execute();
 $stmt->close();
-
 
 $sql = "SELECT * FROM connT";
 $result = $link->query($sql);
