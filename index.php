@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: /login/login.php");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="sk">
 	<head>
@@ -41,16 +51,22 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div id="path"></div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-8">
+                    <p id="distance"></p>
+                    <table class="table table-striped table-bordered">
+                        <tbody id="path">
+                        </tbody>
+                    </table>
+                    <button id="send" class="btn btn-success">Ukončiť trasu</button>
                 </div>
             </div>
         </div>
 
 		<script src="include/qr-scanner/qr-scanner.umd.min.js"></script>
 		<script src="distance-table.js"></script>
-		<script src="handle-qr.js"></script>
+        <script src="handle-qr.js"></script>
+        <script src="ajax.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,16 +1,16 @@
 QrScanner.WORKER_PATH = "include/qr-scanner/qr-scanner-worker.min.js";
 
-let previous;
+let previous = { id: 0 };
 let distance = 0;
 let locations = [];
-const pathElem = document.getElementById( "path" );
 let rendered = 0;
+let calculated = 1;
 
 const lookup = ( loc1, loc2 ) => {
 	let dist;
 	if( loc1.id in distances ) {
 		if( loc2.id in distances[ loc1.id ] ) {
-			return distances[ loc1.id ][loc2.id ];
+			return distances[ loc1.id ][ loc2.id ];
 		}
 	} else if( loc2.id in distances ) {
 		if( loc1.id in distances[ loc2.id ] ) {
@@ -48,33 +48,49 @@ const fillFromCookie = cookie => {
 
 const renderLocations = () => {
 	for( let i = rendered; i < locations.length; i++ ) {
-		let x = document.createElement( "P" );
-		x.setAttribute( "id", "location" );
-		path.appendChild( x );
+		let x = document.createElement( "TR" );
+		let y = document.createElement( "TD" );
+		//x.setAttribute( "class", "table-primary" );
+		//y.setAttribute( "class", "table-primary" );
+		y.innerHTML = locations[ i ].name;
+		x.appendChild( y );
+		document.getElementById( "path" ).appendChild( x );
 	}
-	rendered = locations.length - 1;
+	rendered = locations.length;
+};
+
+const computeDistance = () => {
+	for( let i = calculated; i < locations.length; i++ ) {
+		distance += lookup( locations[ i ], locations[ i - 1 ] );
+	}
+	document.getElementById( "distance" ).innerHTML = distance.toString() + "km";
+	calculated = locations.length;
 };
 
 const scanner = new QrScanner(
 	document.getElementById( "videoElem" ),
 	result => {
-		if( result.localeCompare( previous ) ) {
-			let location = JSON.parse( result );
+		let location = JSON.parse( result );
+		if( location.id != previous.id ) {
 			locations.push( location );
-			previous = result;
+			previous = location;
 			console.log( locations );
 			updateCookie( locations );
 			renderLocations();
+			computeDistance();
 		}
 	}
 );
 
 let path = getCookie( "path" );
 console.log( path );
-if( path == "" ) {
+
+if( path == "{[]}" || path == "" ) {
 	scanner.start();
 } else {
 	fillFromCookie( path );
+	previous = locations[ locations.length - 1 ];
 	renderLocations();
+	computeDistance();
 	scanner.start();
 }
