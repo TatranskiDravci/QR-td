@@ -1,7 +1,7 @@
 <?php
 $servername = "a043um.forpsi.com";
-$username = "f147316";
-$password = "S86FnMnR";
+$username = "xxxxxx";
+$password = "Xxxxxxxx";
 $dbname = "f147316";
 
 // Create connection
