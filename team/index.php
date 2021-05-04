@@ -1,10 +1,7 @@
 <?php
-// Initialize the session
 session_start();
-
-// Check if the user is logged in, if not then redirect them to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-  header("location: /login/login.php");
+if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
+  header("location: login.php");
   exit;
 }
 ?>
@@ -68,10 +65,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </div>
         </div>
 
-		<script src="include/qr-scanner/qr-scanner.umd.min.js"></script>
-		<script src="distance-table.js"></script>
-        <script src="handle-qr.js"></script>
-        <script src="ajax.js"></script>
+		<script src="/include/qr-scanner/qr-scanner.umd.min.js"></script>
+		<script src="js/distance-table.js"></script>
+        <script src="js/handle-qr.js"></script>
+        <script src="js/ajax.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
                 crossorigin="anonymous">
