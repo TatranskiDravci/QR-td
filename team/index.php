@@ -46,6 +46,7 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
                 </div>
             </div>
         </nav>
+        <!-- TODO chybaju texty -->
         <div class="container">
             <div class="row">
                 <div class="col-12">

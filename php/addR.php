@@ -15,6 +15,8 @@ $name = $_SESSION["usernameT"];
 $stmt->execute();
 $stmt->close();
 
+//TODO pozri ci to vobec funguje
+//TODO presunut tieto subory inam
 echo "OK";/*
 
 $sql = "SELECT * FROM connT";

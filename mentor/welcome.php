@@ -1,13 +1,9 @@
 <?php
-// Initialize the session
 session_start();
-
-// Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
   header("location: login.php");
   exit;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +39,7 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Ako to funguje</a>
+                        <!--TODO vytvorit qr-code tutorial-->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Prihlásiť sa</a>
@@ -84,6 +81,7 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
                           }
                         } else {
                           echo "<tr><td>Nebol pridaný tím</td><td>Pridajte tím stlačením tlačidla vyššie.</td></tr>";
+                          //TODO vlozit tlacidlo na vymazanie
                         }
                         $result->close();
                         $link->close();
