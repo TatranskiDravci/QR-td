@@ -1,6 +1,20 @@
-QrScanner.WORKER_PATH = "include/qr-scanner/qr-scanner-worker.min.js";
+QrScanner.WORKER_PATH = "js/qr-scanner/qr-scanner-worker.min.js";
 
+// let distance = 0;
 let loc = { id: -1 };
+
+// const lookup = (loc1, loc2) => {
+//	let dist;
+//	if(loc1.id in distances) {
+//		if(loc2.id in distances[loc1.id]) {
+//			return distances[loc1.id][loc2.id];
+//		}
+//	} else if(loc2.id in distances) {
+//		if(loc1.id in distances[loc2.id]) {
+//			return distances[loc2.id][loc1.id];
+//		}
+//	}
+//};
 
 const getCookie = name => {
 	name = name + "=";
@@ -49,6 +63,14 @@ const renderCurrent = location => {
 		table.appendChild(row2);
 	}
 };
+
+//const computeDistance = () => {
+//	for(let i = calculated; i < locations.length; i++) {
+//		distance += lookup(locations[i], locations[i - 1]);
+//	}
+//	document.getElementById("distance").innerHTML = distance.toString() + "km";
+//	calculated = locations.length;
+//};
 
 const scanner = new QrScanner(
 	document.getElementById("videoElem"),

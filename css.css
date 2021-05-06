@@ -1,9 +1,7 @@
 body {
     box-sizing: content-box;
 }
-
 #videoElem {
     width: 100%;
     max-height: 45vh;
 }
-
