@@ -14,7 +14,7 @@
     "qr-scanner-worker.min.js",
     "qr-scanner-worker.min.js.map",
     "src/qr-scanner.js",
-    "types/qr-scanner.d.ts"
+    ""
   ],
   "scripts": {
     "build": "rollup --config"

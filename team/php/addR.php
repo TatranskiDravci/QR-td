@@ -7,17 +7,17 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
 require_once "connect.php";
 
 $stmt = $link->prepare("UPDATE TestTable SET tCheckpoint = ? WHERE tName = ?;");
-$stmt->bind_param("ssd", $point, $name);
+$stmt->bind_param("ss", $point, $name);
 
 $point = $_REQUEST["name"];
 $name = $_SESSION["usernameT"];
 
 $stmt->execute();
 $stmt->close();
+$link->close();
 
 //TODO pozri ci to vobec funguje
-//TODO presunut tieto subory inam
-echo "OK";/*
+/*
 
 $sql = "SELECT * FROM connT";
 $result = $link->query($sql);

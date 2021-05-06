@@ -1,4 +1,4 @@
-QrScanner.WORKER_PATH = "include/qr-scanner/qr-scanner-worker.min.js";
+QrScanner.WORKER_PATH = "js/qr-scanner/qr-scanner-worker.min.js";
 
 // let distance = 0;
 let loc = { id: -1 };

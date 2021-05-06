@@ -3,7 +3,7 @@ const send = location => {
 	xmlhttp.onreadystatechange = () => {};
 	xmlhttp.open(
 		"GET",
-		"/php/addR.php?name=" + encodeURIComponent(location.name) + "&id=" + encodeURIComponent(location.id),
+		"php/addR.php?name=" + encodeURIComponent(location.name) + "&id=" + encodeURIComponent(location.id),
 		true
 	);
 	xmlhttp.send();

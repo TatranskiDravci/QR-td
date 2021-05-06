@@ -9,7 +9,7 @@
               rel="stylesheet"
               integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="/include/css/css.css">
+        <link rel="stylesheet" href="/css.css">
     </head>
 	<body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-		<script src="include/qr-scanner/qr-scanner.umd.min.js"></script>
+		<script src="team/js/qr-scanner/qr-scanner.umd.min.js"></script>
 		<script src="distance-table.js"></script>
         <script src="handle-qr.js"></script>
         <script src="ajax.js"></script>

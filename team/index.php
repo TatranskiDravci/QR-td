@@ -16,7 +16,7 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
               rel="stylesheet"
               integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="/include/css/css.css">
+        <link rel="stylesheet" href="/css.css">
     </head>
 	<body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -66,8 +66,7 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
             </div>
         </div>
 
-		<script src="/include/qr-scanner/qr-scanner.umd.min.js"></script>
-		<script src="js/distance-table.js"></script>
+		<script src="/team/js/qr-scanner/qr-scanner.umd.min.js"></script>
         <script src="js/handle-qr.js"></script>
         <script src="js/ajax.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
