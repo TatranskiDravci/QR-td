@@ -54,11 +54,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="row d-flex justify-content-center">
                 <div class="col-10">
                     <p id="distance"></p>
-                    <table class="table table-striped table-bordered">
-                        <tbody id="path">
+                    <table class="table table-bordered">
+                        <tbody id="tableElem">
                         </tbody>
                     </table>
-                    <button id="send" class="btn btn-success">Ukončiť trasu</button>
                 </div>
             </div>
         </div>
