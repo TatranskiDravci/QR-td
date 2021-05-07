@@ -6,31 +6,12 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
 }
 require_once "connect.php";
 
-$stmt = $link->prepare("UPDATE TestTable SET tCheckpoint = ? WHERE tName = ?;");
-$stmt->bind_param("ss", $point, $name);
+$stmt = $link->prepare("UPDATE TestTable SET tCheckpoint = ?, tID = ? WHERE tName = ?");
+$stmt->bind_param("sis", $point, $IDcheck, $name);
 
 $point = $_REQUEST["name"];
+$IDcheck = $_REQUEST["id"];
 $name = $_SESSION["usernameT"];
 
 $stmt->execute();
 $stmt->close();
-$link->close();
-
-//TODO pozri ci to vobec funguje
-/*
-
-$sql = "SELECT * FROM connT";
-$result = $link->query($sql);
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo $row["users"] . $row["zaznamy"];
-  }
-} else {
-  echo "0 results";
-}
-$result->close();
-
-$link->close();
-
-echo "hotovo";*/

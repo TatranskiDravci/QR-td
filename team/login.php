@@ -4,7 +4,7 @@ if(isset($_SESSION["loggedinT"]) && $_SESSION["loggedinT"] === true){
   header("location: index.php");
   exit;
 }
-require_once "config.php";
+require_once "php/connect.php";
 
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
@@ -74,29 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Robotika QR</a>
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Moje záznamy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ako to funguje</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Prihlásiť sa</a>
-                </li>
-            </ul>
-        </div>
+        <a class="navbar-brand h1" href="#" style="margin-right: unset">Robotika QR</a>
     </div>
 </nav>
 <div class="container">

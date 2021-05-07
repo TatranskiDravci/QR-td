@@ -34,13 +34,10 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Moje záznamy</a>
+                            <a class="nav-link" href="tutorial.php">Ako to funguje?</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Ako to funguje</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Prihlásiť sa</a>
+                            <a class="nav-link" href="logout.php">Odhlásiť sa</a>
                         </li>
                     </ul>
                 </div>
