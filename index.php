@@ -14,7 +14,7 @@
 	<body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand h1" href="#" style="margin-right: unset">Robotika QR</a>
+                <a class="navbar-brand h1" href="/" style="margin-right: unset">Robotika QR</a>
             </div>
         </nav>
         <div class="container-fluid"><!--
@@ -60,8 +60,8 @@
                             <div class="col-12 offset-lg-3 col-lg-6">
                                 <h2>Vytváram aktivitu</h2>
                                 <p>Vytvorte pre vaše tímy inetraktívnu trasu pomocov QR kódov generovaných na našej stránke. Vaše tímy si na vami určených miestach - chcekpointoch naskenujú QR kód. Kód im môže ukázať aj správu či indíciu na daľšie miesto, pretože použitie je na vás. Akonáhle tím naskenuje QR kód vy budete vidieť na ktorom checkpointe sa tím nachádza.
-                                <a href="#" class="link-primary a-link">Viac informácii</a></p>
-                                <a href="team/login.php" class="btn btn-primary ml-3">Prihlásiť sa</a>
+                                <a href="veduci/tutorial.php" class="link-primary a-link">Viac informácii</a></p>
+                                <a href="veduci/login.php" class="btn btn-primary ml-3">Prihlásiť sa</a>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             <div class="col-12 offset-lg-3 col-lg-6">
                                 <h2>Som v tíme</h2>
                                 <p>Proces je jednoduchý! Prihláste sa pomocov údajov ktoré vám vytvorí váš vedúci. Potom si na každom chceckpointe naskenujte qr kód a HOTOVO! Váš vedúci vidí váš progres.
-                                <a href="#" class="link-primary a-link">Viac informácii</a></p>
+                                <a href="team/tutorial.php" class="link-primary a-link">Viac informácii</a></p>
                                 <a href="team/login.php" class="btn btn-primary ml-3">Prihlásiť sa</a>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col-12 pt-5 pb-2 px-5 m-bright text-center">
                     <h5 style="font-size: 18px">Vytvorené tímom Tatranskí Dravci.</h5>
-                    <p style="font-size: 12px">Inovačný projekt na súťaž FIRST Lego League pre ročník 2021.<br>Evanjelické Gymnázium Juraja Tranovského</p>
+                    <p style="font-size: 12px">Inovačný projekt na súťaž FIRST Lego League pre ročník 2020/2021.<br>Evanjelické Gymnázium Juraja Tranovského</p>
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Robotika QR</a>
+            <a class="navbar-brand" href="/">Robotika QR</a>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -35,14 +35,17 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Moje záznamy</a>
+                        <a class="nav-link" href="register.php">Pridať team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Ako to funguje</a>
+                        <a class="nav-link" href="generator.php">Vytvoriť trasu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tutorial.php">Ako to funguje</a>
                         <!--TODO vytvorit qr-code tutorial-->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Prihlásiť sa</a>
+                        <a class="nav-link" href="logout.php">Odhlásiť sa</a>
                     </li>
                 </ul>
             </div>
@@ -53,20 +56,18 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
             <div class="col-12 text-center">
                 <h2>Sledovanie tímov</h2>
                 <p>Tu nájdete kde sa nachádza váš tím.</p>
-                <p>
-                    <a href="logout.php" class="btn btn-primary ml-3">Odhlásiť sa</a>
-                    <span> | </span>
-                    <a href="register.php" class="btn btn-primary ml-3">Pridať tím</a>
-                </p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 offset-md-2 col-md-8 text-left">
+            <div class="col-12">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Meno tímu</th>
-                            <th scope="col">Posledný checkpoint</th>
+                            <th scope="col">Číslo chcekpointu</th>
+                            <th scope="col">Meno checkpointu</th>
+                            <th scope="col">Čas pripojenia</th>
+                            <th scope="col">Odstrániť team</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,7 +78,7 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
                         $result = $link->query($sql);
                         if ($result->num_rows > 0) {
                           while ($row = $result->fetch_assoc()) {
-                            echo "<tr><td>" . $row['tName'] . "</td><td>" . $row['tCheckpoint'] . "</td></tr>";
+                            echo "<tr><td>" . $row['tName'] . "</td><td>" . $row['tID'] . "</td><td>" . $row['tCheckpoint'] . "</td><td>" . $row['tTime'] . "</td><td><a href='php/delete.php?id=" . $row['idTeams'] . "'>Delete</a></td></tr>";
                           }
                         } else {
                           echo "<tr><td>Nebol pridaný tím</td><td>Pridajte tím stlačením tlačidla vyššie.</td></tr>";

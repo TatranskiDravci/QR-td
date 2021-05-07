@@ -6,11 +6,12 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
 }
 require_once "connect.php";
 
-$stmt = $link->prepare("UPDATE TestTable SET tCheckpoint = ?, tID = ? WHERE tName = ?");
-$stmt->bind_param("sis", $point, $IDcheck, $name);
+$stmt = $link->prepare("UPDATE TestTable SET tCheckpoint = ?, tID = ?, tTime = ? WHERE tName = ?");
+$stmt->bind_param("siss", $point, $IDcheck, $time, $name);
 
 $point = $_REQUEST["name"];
 $IDcheck = $_REQUEST["id"];
+$time = date("Y-m-d H:i:s");
 $name = $_SESSION["usernameT"];
 
 $stmt->execute();
