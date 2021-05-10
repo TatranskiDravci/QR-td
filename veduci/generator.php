@@ -12,17 +12,18 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Tatranskí dravci">
-    <title>Robotika QR</title>
+    <title>IDEM&trade;</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/css.css">
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Robotika QR</a>
+            <a class="navbar-brand" href="/">IDEM&trade;</a>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -54,18 +55,32 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Názov lokality</label>
-                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="hint" class="form-label">Indícia</label>
-                        <input type="text" class="form-control" id="hint">
-                    </div>
-                </form>
-                <button class="btn btn-success" id="create">Vytvoriť</button>
-                <button class="btn btn-primary" id="download">Stiahnúť</button>
+                <div class="wrapper col-12 offset-md-2 col-md-8 text-center">
+                    <h2>Vytvoriť trasu</h2>
+                    <p>Vytvorte checkpointy, pridajte svoje správy či indície a stiahnite si ich formou QR kódov. </p>
+
+                    <form>
+                        <div class="mb-3 text-start">
+                            <label for="name" class="form-label">Názov lokality</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="hint" class="form-label">Indícia</label>
+                            <input type="text" class="form-control" id="hint">
+                        </div>
+                        <div class="mb-3 form-check text-end">
+                            <button class="btn btn-success" id="create">Vytvoriť</button>
+                            <button class="btn btn-primary" id="download">Stiahnúť</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="wrapper col-12 offset-md-2 col-md-8 text-center">
+                    <p>Placeholder</p>
+                </div>
             </div>
         </div>
     </div>
@@ -74,6 +89,5 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
     <script src="js/qr-gen.js"></script>
-    <div id="qrcode" style="visibility: hidden;"></div>
 </body>
 </html>

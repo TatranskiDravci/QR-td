@@ -1,20 +1,10 @@
 <?php
-require "config.php";
+require "php/connect.php";
 
-$tim = $password = $confirm_password = "";
+$tim = $password = "";
 $tim_err = $password_err = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    /*if (empty(trim($_POST["Akcia"]))) {
-        $tim_err = "Prosim vytvorte meno tabulky.";
-    } else {
-        // Prepare a select statement
-        $akcia = trim($_POST["Akcia"]);
-
-        $sql = "SELECT 1 FROM " . $akcia;
-        $result = $link->query($sql);
-
-        if ($result == TRUE) {*/
     if (empty(trim($_POST["Tim"]))) {
         $tim_err = "Please enter a username.";
     } else {
@@ -60,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if($stmt->execute()){
                 header("location: index.php");
             } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "Ooops! Something went wrong. Please try again later.";
             }
 
             $stmt->close();
@@ -81,12 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Tatranskí dravci">
-    <title>Robotika QR</title>
+    <title>IDEM&trade;</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/css.css">
+    <link rel="manifest" href="/manifest.json">
     <style>
         .wrapper{padding: 20px;}
     </style>
@@ -94,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Robotika QR</a>
+            <a class="navbar-brand" href="/">IDEM&trade;</a>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"

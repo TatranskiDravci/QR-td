@@ -11,17 +11,18 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Tatranskí dravci">
-        <title>Robotika QR</title>
+        <title>IDEM&trade;</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
               rel="stylesheet"
               integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
               crossorigin="anonymous">
         <link rel="stylesheet" href="/css.css">
+        <link rel="manifest" href="/manifest.json">
     </head>
 	<body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">Robotika QR</a>
+                <a class="navbar-brand" href="/">IDEM&trade;</a>
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -43,10 +44,16 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
                 </div>
             </div>
         </nav>
-        <!-- TODO chybaju texty -->
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 offset-md-2 col-md-8 text-center">
+                    <h2><?php echo $_SESSION["usernameT"];?></h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
                     <video id="videoElem"></video>
                 </div>
             </div>
@@ -57,6 +64,7 @@ if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
                     <p id="distance"></p>
                     <table class="table table-bordered">
                         <tbody id="tableElem">
+                            <!-- TODO cookies sa ukladaju samostatne a ked sa odhlasim a prihlasim tak sa nevymazu -->
                         </tbody>
                     </table>
                 </div>

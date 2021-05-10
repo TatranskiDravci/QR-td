@@ -4,17 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Tatranskí dravci">
-        <title>Robotika QR</title>
+        <title>IDEM&trade;</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
               rel="stylesheet"
               integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
               crossorigin="anonymous">
         <link rel="stylesheet" href="/css.css">
+        <link rel="manifest" href="/manifest.json">
+        <style>
+            .navbar>.container-fluid {justify-content: center;}
+        </style>
     </head>
 	<body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand h1" href="/" style="margin-right: unset">Robotika QR</a>
+                <a class="navbar-brand h1" href="/" style="margin-right: unset">IDEM&trade;</a>
             </div>
         </nav>
         <div class="container-fluid"><!--
@@ -22,9 +26,7 @@
                 <div class="col-12">
                     <div class="container-fluid" style="padding-left: 0; padding-right: 0">
                         <div class="row a-cols">
-                            <div class="col-12 col-sm-5 offset-sm-1 a-texts" style="text-align: right;">
-                                <h1>Som v tíme</h1>
-                                <p>Proces je jednoduchý! Prihláste sa pomocov údajov ktoré vám vytvorí váš vedúci. Potom si na každom chceckpointe naskenujte qr kód a HOTOVO! Váš vedúci vidí váš progres.</p>
+                            <div class="col-12 col-sm-5 offset-sm-1 a-texts" style="text-align: right;">Fkaždom chceckpointe naskenujte qr kód a HOTOVO! Váš vedúci vidí váš progres.</p>
                             </div>
                             <div class="col-12 col-sm-6 align-self-center text-center">
                                 <a href="team/login.php" class="btn btn-primary ml-3 a-texts">Prihlásiť sa ako tím.</a>

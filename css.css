@@ -1,9 +1,9 @@
 body {
     box-sizing: content-box;
-}
+}/*
 .navbar>.container-fluid {
     justify-content: center;
-}
+}*/
 .content {
     margin-top: 50px;
 }
@@ -59,6 +59,15 @@ h2 {
     margin: 3px 0 15px;
 }
 #videoElem {
-    width: 100%;
-    max-height: 45vh;
+    width: 45vh;
+    height: 45vh;
+    object-fit: cover;
+}
+.t-content {
+    width: max-content;
+}
+@media only screen and (min-width: 992px) {
+    .t-content {
+        width: 100%;
+    }
 }

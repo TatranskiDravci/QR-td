@@ -12,17 +12,18 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Tatranskí dravci">
-    <title>Robotika QR</title>
+    <title>IDEM&trade;</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/css.css">
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Robotika QR</a>
+            <a class="navbar-brand" href="/">IDEM&trade;</a>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -55,12 +56,12 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
         <div class="row">
             <div class="col-12 text-center">
                 <h2>Sledovanie tímov</h2>
-                <p>Tu nájdete kde sa nachádza váš tím.</p>
+                <p>Tu nájdete kde sa vaše tímy nachádzajú.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <table class="table">
+            <div class="col-12" style="overflow-x: scroll;">
+                <table class="table table-bordered t-content">
                     <thead>
                         <tr>
                             <th scope="col">Meno tímu</th>
@@ -78,10 +79,10 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
                         $result = $link->query($sql);
                         if ($result->num_rows > 0) {
                           while ($row = $result->fetch_assoc()) {
-                            echo "<tr><td>" . $row['tName'] . "</td><td>" . $row['tID'] . "</td><td>" . $row['tCheckpoint'] . "</td><td>" . $row['tTime'] . "</td><td><a href='php/delete.php?id=" . $row['idTeams'] . "'>Delete</a></td></tr>";
+                            echo "<tr><td>" . $row['tName'] . "</td><td>" . $row['tID'] . "</td><td>" . $row['tCheckpoint'] . "</td><td>" . $row['tTime'] . "</td><td><a href='php/delete.php?id=" . $row['idTeams'] . "'>Vymazať tím</a></td></tr>";
                           }
                         } else {
-                          echo "<tr><td>Nebol pridaný tím</td><td>Pridajte tím stlačením tlačidla vyššie.</td></tr>";
+                          echo "<tr><td>Nebol pridaný tím</td><td>Pridajte tím stlačením tlačidla vyššie.</td><td>-</td><td>-</td><td>-</td></tr>";
                           //TODO vlozit tlacidlo na vymazanie
                         }
                         $result->close();
