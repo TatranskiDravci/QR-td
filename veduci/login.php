@@ -56,7 +56,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand h1" href="/" style="margin-right: unset">IDEM&trade;</a>
+            <a class="navbar-brand h1" href="/" style="margin: 0;padding:0">
+                <img src="/idem.png" alt="IDEM" height="30">
+            </a>
         </div>
     </nav>
     <div class="container">

@@ -23,7 +23,9 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">IDEM&trade;</a>
+            <a class="navbar-brand" href="/">
+                <img src="/idem.png" alt="IDEM" height="30">
+            </a>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -71,23 +73,8 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
                             <th scope="col">Odstrániť team</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        require_once "config.php";
-
-                        $sql = "SELECT * FROM TestTable";
-                        $result = $link->query($sql);
-                        if ($result->num_rows > 0) {
-                          while ($row = $result->fetch_assoc()) {
-                            echo "<tr><td>" . $row['tName'] . "</td><td>" . $row['tID'] . "</td><td>" . $row['tCheckpoint'] . "</td><td>" . $row['tTime'] . "</td><td><a href='php/delete.php?id=" . $row['idTeams'] . "'>Vymazať tím</a></td></tr>";
-                          }
-                        } else {
-                          echo "<tr><td>Nebol pridaný tím</td><td>Pridajte tím stlačením tlačidla vyššie.</td><td>-</td><td>-</td><td>-</td></tr>";
-                          //TODO vlozit tlacidlo na vymazanie
-                        }
-                        $result->close();
-                        $link->close();
-                        ?>
+                    <tbody id="tableElem">
+                        <?php require "php/table.php"; ?>
                     </tbody>
                 </table>
             </div>
@@ -97,5 +84,10 @@ if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous">
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script src="js/table.js"></script>
 </body>
 </html>
