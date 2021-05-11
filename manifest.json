@@ -1,0 +1,8 @@
+{
+  "name": "IDEM",
+  "short_name": "IDEM",
+  "start_url": "https://qr.peteriglarcik.eu/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": ""
+}
