@@ -1,0 +1,29 @@
+CREATE TABLE `users` (
+  `userID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `hashU` varchar(15) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`userID`),
+  UNIQUE KEY `username` (`username`)
+)
+
+CREATE TABLE `zaznamy` (
+    `zaznamyID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `hashZ` varchar(15) NOT NULL,
+    `cesta` VARCHAR(300) NOT NULL,
+    `km` VARCHAR(25) NOT NULL,
+    PRIMARY KEY (`zaznamyID`)
+)
+
+CREATE TABLE `connT` (
+    `users` INT UNSIGNED NOT NULL,
+    `zaznamy` SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (`users`, `zaznamy`),
+    CONSTRAINT `Constr_connT_UsersT`
+        FOREIGN KEY `UsersT` (`users`) REFERENCES `users` (`userID`)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `Constr_connT_ZaznamyT`
+        FOREIGN KEY `ZaznamyT` (`zaznamy`) REFERENCES `zaznamy` (`zaznamyID`)
+        ON DELETE CASCADE ON UPDATE CASCADE
+)
