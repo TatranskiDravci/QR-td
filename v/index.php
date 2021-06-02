@@ -20,7 +20,8 @@ require 'php/logged.php';
         </div>
         <div class="row">
             <div class="col-12" style="overflow-x: scroll;">
-                <table class="table table-bordered t-content">
+              <?php include "php/table.php"; ?>
+                <!--<table class="table table-bordered t-content">
                     <thead>
                         <tr>
                             <th scope="col">Meno tímu</th>
@@ -31,9 +32,9 @@ require 'php/logged.php';
                         </tr>
                     </thead>
                     <tbody id="tableElem">
-                        <?php include "php/table.php"; ?>
+
                     </tbody>
-                </table>
+                </table>-->
             </div>
         </div>
     </div>

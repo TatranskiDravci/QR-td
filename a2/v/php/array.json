@@ -1,0 +1,14 @@
+{
+  "expedition":{ "name":"John", "PName": "Test", "pass": "Heslo" },
+  "QR":[
+    { "QRid": "123456789", "QRMeno": "Ziar dolinky", "QRsprava": "PISd aoikjp p jkas jp." },
+    { "QRid": "456789123", "QRMeno": "Ziar parkovisko", "QRsprava": "Good, good." },
+    { "QRid": "789123456", "QRMeno": "Ziarska chata", "QRsprava": "very nice." }
+  ],
+  "History": [
+    { "hId": "1111111111", "QRid": "123456789", "hPoradie": "0" },
+    { "hId": "2222222222", "QRid": "456789123", "hPoradie": "1" },
+    { "hId": "3333333333", "QRid": "789123456", "hPoradie": "2" },
+    { "hId": "4444444444", "QRid": "456789123", "hPoradie": "3" }
+  ]
+}
