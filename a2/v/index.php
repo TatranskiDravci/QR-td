@@ -112,7 +112,7 @@ WHERE `TD-VeduciTimy`.`vId` = '" . $_SESSION["vId"] . "' ";
             if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
                 echo '<li class="nav-item">
-                <a class="nav-link" aria-current="page" tid="#'. $row['tId'] .'">'. $row['tMeno'] .'</a>
+                <a class="nav-link" aria-current="page" tid="'. $row['tId'] .'">'. $row['tMeno'] .'</a>
             </li>';
               }
             } else {

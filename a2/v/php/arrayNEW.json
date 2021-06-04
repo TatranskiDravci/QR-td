@@ -1,14 +1,15 @@
 {
-  "expedition":{ "tMeno":"John", "tPrihlasovacieMeno": "Test", "tHeslo": "Heslo" },
+  "expedition":{ "tMeno":"Kvinta", "tPrihlasovacieMeno": "kvinta", "tHeslo": "Heslo" },
   "QR":[
-    { "dId": "123456789", "dMeno": "Ziar dolinky", "dSprava": "PISd aoikjp p jkas jp." },
-    { "dId": "456789123", "dMeno": "Ziar parkovisko", "dSprava": "Good, good." },
-    { "dId": "789123456", "dMeno": "Ziarska chata", "dSprava": "very nice." }
+    { "dId": "223456789", "dMeno": "Demanovska dolina Autopark", "dSprava": "Vitajte dole!" },
+    { "dId": "256789123", "dMeno": "Demanovska dolina - Hotel Grand", "dSprava": "Good, good." },
+    { "dId": "289123456", "dMeno": "Demanovska dolina - Chopok", "dSprava": "very nice." }
   ],
   "History": [
-    { "trQrId": "123456789", "trPoradie": "0" },
-    { "trQrId": "456789123", "trPoradie": "1" },
-    { "trQrId": "789123456", "trPoradie": "2" },
-    { "trQrId": "456789123", "trPoradie": "3" }
+    { "trQrId": "223456789", "trPoradie": "0" },
+    { "trQrId": "256789123", "trPoradie": "1" },
+    { "trQrId": "289123456", "trPoradie": "2" },
+    { "trQrId": "256789123", "trPoradie": "3" },
+    { "trQrId": "223456789", "trPoradie": "4" }
   ]
 }
