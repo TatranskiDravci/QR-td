@@ -9,5 +9,5 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to login page
-header("location: https://".$_SERVER['HTTP_HOST']."/a2/login.php");
+header("location: https://".$_SERVER['HTTP_HOST']."/login.php");
 exit;

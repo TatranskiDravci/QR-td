@@ -25,7 +25,7 @@
           <!--TODO vytvorit qr-code tutorial-->
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="logout.php">Odhlásiť sa</a>
+          <a class="nav-link" href="/logout.php">Odhlásiť sa</a>
         </li>
       </ul>
     </div>

@@ -111,10 +111,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IDEM</title>
-  <?php include '../include/head.php'; ?>
+  <?php include 'include/head.php'; ?>
 </head>
 <body>
-<?php include '../include/nav_min.php';?>
+<?php include 'include/nav_min.php';?>
 <div class="container">
   <div class="row">
     <div class="col-12 offset-md-2 col-md-8">

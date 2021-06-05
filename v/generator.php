@@ -1,78 +1,6 @@
 <?php
-require_once "php/logged.php";/*
-require_once "https://".$_SERVER['HTTP_HOST']."/include/conn.php";
-
-$VTPMeno = $VTPHeslo = '';
-$VTPMeno_err = $VTPHeslo_err = '';
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-  //check if email already exists
-  if (empty(trim($_POST["vEmail"]))) {
-    $vEmail_err = "Prosím napíšte email.";
-  } else {
-    $sql = "SELECT DBtPMeno FROM timyDB WHERE DBtPMeno = ?";
-
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "s", $param_tPMeno);
-      $param_tPMeno = trim($_POST["VTPMeno"]);
-
-      if (mysqli_stmt_execute($stmt)) {
-        mysqli_stmt_store_result($stmt);
-
-        if (mysqli_stmt_num_rows($stmt) == 1) {
-          $VTPMeno_err = "Tento email už je zaregistrovaný. <a href='../login.php'>Prihlásiť sa</a>";
-        } else {
-          $VTPMeno = trim($_POST["VTPMeno"]);
-        }
-      } else {
-        echo "Niekde nastala chyba.";
-      }
-      mysqli_stmt_close($stmt);
-    }
-  }
-  //check if pass meets conditions
-  if (empty(trim($_POST["VTPHeslo"]))) {
-    $VTPHeslo_err = "Prosím napíšte heslo";
-  } else {
-    $VTPHeslo = trim($_POST["VTPHeslo"]);
-  }
-  //check if any errors occurred than send to DB
-  if (empty($VTPMeno_err) && empty($VTPHeslo_err)) {
-    $sql = "INSERT INTO timyDB (DBtId, DBtMeno, DBtPMeno, DBtPHeslo) VALUES (?, ?, ?, ?)";
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "ssss", $param_tId, $param_tMeno, $param_tPMeno, $param_tHeslo);
-
-      // Set parameters
-      $param_tId = bin2hex(random_bytes(32));
-      $param_tMeno = "Placeholder";
-      $param_tPMeno = trim($_POST["VTPMeno"]);
-      $param_tHeslo = password_hash($VTPHeslo, PASSWORD_DEFAULT);
-
-      if (mysqli_stmt_execute($stmt)) {
-        mysqli_stmt_close($stmt);
-        $sql = "INSERT INTO VeduciTimyDB (DBvId, DBtId) VALUES (?, ?)";
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-          mysqli_stmt_bind_param($stmt, "ss", $param_vId, $param_tId);
-          $param_vId = $_SESSION["vId"];
-          if (mysqli_stmt_execute($stmt)) {
-            header("location: index.php");
-          } else {
-            $err = "Niekde nastala chyba.";
-          }
-          mysqli_stmt_close($stmt);
-        } else {
-          $err = "Niekde nastala chyba.";
-        }
-      }
-    } else {
-      $err = "Niekde nastala chyba.";
-    }
-
-    mysqli_close($conn);
-  }
-}*/
+require_once "php/logged.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -90,15 +18,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h2>Vytvoriť expedíciu</h2>
                         <form>
                             <div class="mb-3 text-start">
-                                <label for="name" class="form-label">Názov expedície</label>
+                                <label for="ename" class="form-label">Názov expedície</label>
                                 <input type="text" class="form-control" id="ename" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3 text-start">
-                                <label for="name" class="form-label">Prihlasovacie meno tímu</label>
+                                <label for="euname" class="form-label">Prihlasovacie meno tímu</label>
                                 <input type="text" class="form-control" id="euname" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3 text-start">
-                                <label for="hint" class="form-label">Prihlasovacie heslo tímu</label>
+                                <label for="epass" class="form-label">Prihlasovacie heslo tímu</label>
                                 <input type="text" class="form-control" id="epass">
                             </div>
                         </form>
