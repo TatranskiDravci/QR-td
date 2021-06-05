@@ -12,7 +12,7 @@ if($conn === false) {
 
 $err = "";
 
-$getFromFile = file_get_contents('arrayNEW.json');
+$getFromFile = file_get_contents('php://input');
 $arr = json_decode($getFromFile, true);
 
 $value = $arr["expedition"];
