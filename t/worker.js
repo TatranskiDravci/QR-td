@@ -1,5 +1,7 @@
 const CACHE_NAME = "offline-cache";
 
+// TODO: QR codes from server --> IndexedDB
+
 let urlsToCache = [
     "/team/js/qr-scanner/qr-scanner.umd.min.js",
     "/team/js/handle-qr.js",
