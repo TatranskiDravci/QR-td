@@ -1,5 +1,5 @@
 <?php
-require 'php/logged.php';
+require_once "php/logged.php";
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -7,34 +7,140 @@ require 'php/logged.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IDEM</title>
-    <?php include '../include/head.php'; ?>
+    <?php include "../include/head.php"; ?>
+    <style>
+        .containerINFO {
+            width: 100%;
+            padding-right: var(--bs-gutter-x,.75rem);
+            padding-left: var(--bs-gutter-x,.75rem);
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .nav-tabs {
+            background-color: #ffffff;
+            width: 100%;
+        }
+        .nav-link {
+            color: #5fb865;
+            font-weight: 650;
+            text-decoration: underline;
+        }
+        .info-top {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 10px;
+        }
+        .timeline {
+            position: relative;
+            margin: auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: white;
+            top: 0;
+            bottom: 0;
+            left: 31px;
+            margin-left: -3px;
+        }
+        .containerT::before {
+            left: 60px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        .containerT {
+            width: 100%;
+            padding: 10px 25px 10px 70px;
+            position: relative;
+            background-color: inherit;
+        }
+        .containerT:first-child {
+            padding-top: 20px;
+        }
+        .containerT::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid #5fb865;
+            top: 50%;
+            border-radius: 50%;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+        .right {
+            left: 0;
+        }
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 50%;
+            width: 0;
+            z-index: 1;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+            transform: translateY(-50%);
+        }
+        .right::after {
+            left: 18px;
+        }
+        .contentT {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+        }
+    </style>
 </head>
-<body>
-    <?php include '../include/nav_v.php';?>
-    <div class="container">
+<body style="background-color: #272b38">
+    <?php include "../include/nav_v.php";?>
+    <div class="containerINFO">
         <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center info-top">
                 <h2>Sledovanie tímov</h2>
                 <p>Tu nájdete kde sa vaše tímy nachádzajú.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12" style="overflow-x: scroll;">
-              <?php include "php/table.php"; ?>
-                <!--<table class="table table-bordered t-content">
-                    <thead>
-                        <tr>
-                            <th scope="col">Meno tímu</th>
-                            <th scope="col">Číslo chcekpointu</th>
-                            <th scope="col">Meno checkpointu</th>
-                            <th scope="col">Čas pripojenia</th>
-                            <th scope="col">Odstrániť team</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableElem">
+            <ul class="nav nav-tabs">
+              <?php
+                    define('DB_SERVER', 'a043um.forpsi.com');
+                    define('DB_USERNAME', 'f147316');
+                    define('DB_PASSWORD', 'S86FnMnR');
+                    define('DB_NAME', 'f147316');
+                    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+                    if($conn === false) {
+                      die('Connect Error: ' . mysqli_connect_error());
+                    }
 
-                    </tbody>
-                </table>-->
+                    // Display expeditions
+                    $sql = "SELECT *
+                            FROM `TD-VeduciTimy`
+                            INNER JOIN `TD-Timy` ON `TD-VeduciTimy`.`tId` = `TD-Timy`.`tId`
+                            WHERE `TD-VeduciTimy`.`vId` = '" . $_SESSION["vId"] . "' ";
+                    $result = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                      while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<li class="nav-item">
+                                <a href="?tId='. $row['tId'] .'" class="nav-link expeditions" aria-current="page">'. $row['tMeno'] .'</a>
+                              </li>';
+                      }
+                    } else {
+                      echo "Zatiaľ nebol pridaný žiadny tím. <a href='generator.php'>Pridať tím</a>";
+                    }
+                    mysqli_free_result($result);
+                    mysqli_close($conn);
+                    ?>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="timeline" id="timeline"></div>
             </div>
         </div>
     </div>

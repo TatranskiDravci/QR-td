@@ -1,92 +1,43 @@
 <?php
-require 'php/logged.php';
-require_once '../include/conn.php';
-
-$VTPMeno = $VTPHeslo = '';
-$VTPMeno_err = $VTPHeslo_err = '';
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-  /*if(!empty(trim($_POST["vMeno"]))){
-    $vMeno = trim($_POST["vMeno"]);
-  }*/
-  //check if email already exists
-  if (empty(trim($_POST["vEmail"]))) {
-    $vEmail_err = "Prosím napíšte email.";
-  } else {
-    $sql = "SELECT DBtPMeno FROM timyDB WHERE DBtPMeno = ?";
-
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "s", $param_tPMeno);
-      $param_tPMeno = trim($_POST["VTPMeno"]);
-
-      if (mysqli_stmt_execute($stmt)) {
-        mysqli_stmt_store_result($stmt);
-
-        if (mysqli_stmt_num_rows($stmt) == 1) {
-          $VTPMeno_err = "Tento email už je zaregistrovaný. <a href='login.php'>Prihlásiť sa</a>";
-        } else {
-          $VTPMeno = trim($_POST["VTPMeno"]);
-        }
-      } else {
-        echo "Niekde nastala chyba.";
-      }
-      mysqli_stmt_close($stmt);
-    }
-  }
-  //check if pass meets conditions
-  if (empty(trim($_POST["VTPHeslo"]))) {
-    $VTPHeslo_err = "Prosím napíšte heslo";
-  } else {
-    $VTPHeslo = trim($_POST["VTPHeslo"]);
-  }
-  //check if any errors occurred than send to DB
-  if (empty($VTPMeno_err) && empty($VTPHeslo_err)) {
-    $sql = "INSERT INTO timyDB (DBtId, DBtMeno, DBtPMeno, DBtPHeslo) VALUES (?, ?, ?, ?)";
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "ssss", $param_tId, $param_tMeno, $param_tPMeno, $param_tHeslo);
-
-      // Set parameters
-      $param_tId = bin2hex(random_bytes(32));
-      $param_tMeno = "Placeholder";
-      $param_tPMeno = trim($_POST["VTPMeno"]);
-      $param_tHeslo = password_hash($VTPHeslo, PASSWORD_DEFAULT);
-
-      if (mysqli_stmt_execute($stmt)) {
-        mysqli_stmt_close($stmt);
-        $sql = "INSERT INTO VeduciTimyDB (DBvId, DBtId) VALUES (?, ?)";
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-          mysqli_stmt_bind_param($stmt, "ss", $param_vId, $param_tId);
-          $param_vId = $_SESSION["vId"];
-          if (mysqli_stmt_execute($stmt)) {
-            header("location: index.php");
-          } else {
-            $err = "Niekde nastala chyba.";
-          }
-          mysqli_stmt_close($stmt);
-        } else {
-          $err = "Niekde nastala chyba.";
-        }
-      }
-    } else {
-      $err = "Niekde nastala chyba.";
-    }
-
-    mysqli_close($conn);
-  }
-}
+require_once "php/logged.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IDEM</title>
-  <?php include '../include/head.php'; ?>
+  <?php include "../include/head.php"; ?>
 </head>
     <body>
-        <?php include '../include/nav_min.php';?>
+        <?php include "../include/nav_min.php";?>
         <div class="container">
+            <div class="row" id="firstStep">
+                <div class="col-12">
+                    <div class="wrapper col-12 offset-md-2 col-md-8 text-center">
+                        <h2>Vytvoriť expedíciu</h2>
+                        <form>
+                            <div class="mb-3 text-start">
+                                <label for="ename" class="form-label">Názov expedície</label>
+                                <input type="text" class="form-control" id="ename" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label for="euname" class="form-label">Prihlasovacie meno tímu</label>
+                                <input type="text" class="form-control" id="euname" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label for="epass" class="form-label">Prihlasovacie heslo tímu</label>
+                                <input type="text" class="form-control" id="epass">
+                            </div>
+                        </form>
+                        <div class="text-end">
+                            <button class="btn btn-success" id="register">Vytvoriť expedíciu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="secondStep" style="display: none;">
             <div class="row">
                 <div class="col-12">
                     <div class="wrapper col-12 offset-md-2 col-md-8 text-center">
@@ -104,51 +55,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         </form>
                         <div class="text-end">
                             <button class="btn btn-success" id="create">Vytvoriť</button>
-                            <button class="btn btn-primary" id="download">Stiahnúť</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
             <div class="row">
-                <div class="col-12 offset-md-2 col-md-8">
-                    <table class="table table-bordered">
-                        <tbody id="tableElem">
-                        <tr> <th>Číslo checkpointu</th> <th>Meno checkpointu</th> <th>Súbor</th> </tr>
-                        <tr> <td>0</td> <td>Štart</td> <td>0_Štart.png</td> </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 offset-md-2 col-md-8">
-                    <div class="col-12 text-center">
-                        <h2>Registrácia - Vedúci</h2>
-                        <p>Vytvorte si účet ako vedúci a sledujte aktivitu vašich tímov.</p>
-                      <?php if(!empty(trim($err))) {echo "<div class='alert alert-danger' role='alert'>" . $err . "</div>";}?>
+                <div class="col-12">
+                    <div class="wrapper col-12 offset-md-2 col-md-8 text-center gx-5">
+                        <div class="list-group col" id="table">
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-primary" id="download" style="display: none;">Stiahnúť</button>
+                        </div>
                     </div>
-                    <form class="row g-3" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="col-12">
-                            <label class="form-label" for="VTPMeno">Pouzivatelske meno Placeholder:</label>
-                            <input type="text" class="form-control <?php echo (!empty($VTPMeno_err)) ? 'is-invalid' : ''; ?>" id="VTPMeno" name="VTPMeno" value="<?php echo $VTPMeno; ?>">
-                            <span class="invalid-feedback"><?php echo $VTPMeno_err; ?></span>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label" for="VTPHeslo">Heslo:</label>
-                            <input type="password" class="form-control <?php echo (!empty($VTPHeslo_err)) ? 'is-invalid' : ''; ?>" id="VTPHeslo" name="VTPHeslo" value="<?php echo $VTPHeslo; ?>">
-                            <span class="invalid-feedback"><?php echo $VTPHeslo_err; ?></span>
-                        </div>
-                        <div class="col-md-4 form-check text-end">
-                            <button type="submit" class="btn btn-primary">Potvrdiť</button>
-                        </div>
-                    </form>
                 </div>
             </div>
+            </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
-        <script src="js/qr-gen.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
+        <script src="js/uuid.js"></script>
+        <script src="js/generator.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
                 crossorigin="anonymous">

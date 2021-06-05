@@ -1,15 +1,19 @@
 <?php
-//logged in???
-session_start();
-if(isset($_SESSION["vLoggedIn"]) && $_SESSION["vLoggedIn"] === true){
-  header("location: index.php");
-  exit;
+require_once "php/logged.php";
+
+define('DB_SERVER', 'a043um.forpsi.com');
+define('DB_USERNAME', 'f147316');
+define('DB_PASSWORD', 'S86FnMnR');
+define('DB_NAME', 'f147316');
+
+$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+if($conn === false) {
+  die('Connect Error: ' . mysqli_connect_error());
 }
 
-require_once '../include/conn.php';
-
 $vMeno = $vPriezvisko = $vEmail = $vPass = $vTel = $vMesto = '';
-$vEmail_err = $vPass_err = '';
+$vEmail_err = $vPass_err = $err = '';
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   //ukladanie udajov ak by bola chyba aby sa to nemuselo vypisovat znaova
@@ -29,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(empty(trim($_POST["vEmail"]))){
     $vEmail_err = "Prosím napíšte email.";
   } else{
-    $sql = "SELECT DBvId FROM veduciDB WHERE DBvEmail = ?";
+    $sql = "SELECT `vId` FROM `TD-Veduci` WHERE `vEmail` = ?";
 
     if($stmt = mysqli_prepare($conn, $sql)){
       mysqli_stmt_bind_param($stmt, "s", $param_vEmail);
@@ -39,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         mysqli_stmt_store_result($stmt);
 
         if(mysqli_stmt_num_rows($stmt) == 1){
-          $vEmail_err = "Tento email už je zaregistrovaný. <a href='login.php'>Prihlásiť sa</a>";
+          $vEmail_err = "Tento email už je zaregistrovaný. <a href='../login.php'>Prihlásiť sa</a>";
         } else{
           $vEmail = trim($_POST["vEmail"]);
         }
@@ -61,11 +65,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
   //check if any errors occurred than send to DB
   if(empty($vEmail_err) && empty($vPass_err) && !empty(trim($_POST["vTel"])) && !empty(trim($_POST["vMesto"]))){
-    $sql = "INSERT INTO veduciDB (DBvId, DBvMeno, DBvPriezvisko, DBvEmail, DBvPass, DBvTel, DBvMesto) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `TD-Veduci` (`vId`, `vMeno`, `vPriezvisko`, `vEmail`, `vPass`, `vTel`, `vMesto`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     if($stmt = mysqli_prepare($conn, $sql)){
       mysqli_stmt_bind_param($stmt, "sssssss", $param_vId, $param_vMeno, $param_vPriezvisko, $param_vEmail, $param_vPass, $param_vTel, $param_vMesto);
-
+      // TODO Prepared statements (Mesto, tel.c) iba ka su vypisane - momentalne su required
       // Set parameters
       $param_vId = bin2hex(random_bytes(32));
       $param_vMeno = $vMeno;
@@ -125,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="password" class="form-control <?php echo (!empty($vPass_err)) ? 'is-invalid' : ''; ?>" id="vPass" name="vPass" value="<?php echo $vPass; ?>">
             <span class="invalid-feedback"><?php echo $vPass_err; ?></span>
           </div>
-          <div class="col-12">
+          <div class="col-6">
             <label class="form-label" for="vTel">Telefónne číslo:</label>
             <input type="text" class="form-control" id="vTel" name="vTel" value="<?php echo $vTel; ?>" aria-describedby="vTelHelp" placeholder="+421 9XX XXX XXX">
             <div id="vTelHelp" class="form-text">Vase cislo nebudeme potrebovat ale vase timy ano. placeholder.</div>
@@ -133,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="col-md-6">
             <label class="form-label" for="vMesto">Mesto:</label>
             <input type="text" class="form-control" id="vMesto" name="vMesto" value="<?php echo $vMesto; ?>">
-          </div>
+          </div><!--
           <div class="col-md-6">
             <label for="vPouzitie" class="form-label">Použitie:</label>
             <select id="vPouzitie" name="vPouzitie" class="form-select" aria-label="Vyberte použitie aplikácie">
@@ -142,7 +146,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               <option value="vBranne">Branné cvičenie</option>
               <option value="vUloha">Interaktívna úloha v triede</option>
             </select>
-          </div>
+          </div>-->
           <div class="col-md-8">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="gridCheck">

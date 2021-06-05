@@ -1,4 +1,5 @@
 <?php
+// Connect to DB
 define('DB_SERVER', 'a043um.forpsi.com');
 define('DB_USERNAME', 'f147316');
 define('DB_PASSWORD', 'S86FnMnR');
@@ -8,24 +9,27 @@ if($conn === false) {
   die('Connect Error: ' . mysqli_connect_error());
 }
 
-$vId = $_SESSION["vId"];
-$sql = "SELECT `timyDB`.* FROM `timyDB` JOIN `VeduciTimyDB` ON `timyDB`.`DBtId` = `VeduciTimyDB`.`DBtId` WHERE `VeduciTimyDB`.`DBvId` = '" . $vId ."'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-    echo '
-    <div class="card text-center" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div><a href="php/delete.php?id="'/*. $row['idTeams']*/ . '">Vymazať tím</a></td></tr>';
-  }
+// Display route of given team
+$tId = $_GET['tId'];
+$sql = "SELECT *
+FROM `TD-TimyTrasy`
+INNER JOIN `TD-Trasy` ON `TD-TimyTrasy`.`trId` = `TD-Trasy`.`trId`
+INNER JOIN `TD-Qr` ON `TD-Trasy`.`trQrId` = `TD-Qr`.`dId`
+WHERE `TD-TimyTrasy`.`tId` = '" . $tId . "' 
+ORDER BY `TD-Trasy`.`trPoradie`";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo '<div class="containerT right">
+              <div class="contentT">
+                   <h2>' . $row['dMeno'] . '</h2>
+                   <p>' . $row['dSprava'] . '<br>' . $row['trTimeSubmited'] . '</p>
+              </div>
+          </div>';
+    }
 } else {
   echo "Nebol pridaný tím. Pridajte tím stlačením tlačidla vyššie.";
 }
-$result->close();
-$conn->close();
-
+mysqli_free_result($result);
+mysqli_close($conn);
 
