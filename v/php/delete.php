@@ -1,4 +1,5 @@
 <?php
+//TODO add function for deleting expeditions using this base form before
 session_start();
 if(!isset($_SESSION["loggedinM"]) || $_SESSION["loggedinM"] !== true){
   header("location: /veduci/login.php");

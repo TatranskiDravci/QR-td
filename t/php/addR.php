@@ -1,11 +1,14 @@
 <?php
-session_start();
-if(!isset($_SESSION["loggedinT"]) || $_SESSION["loggedinT"] !== true){
-  header("location: /team/login.php");
-  exit;
+$servername = "a043um.forpsi.com";
+$username = "f147316";
+$password = "S86FnMnR";
+$dbname = "f147316";
+$link = new mysqli($servername, $username, $password, $dbname);
+if ($link->connect_error) {
+  die("Connection failed: " . $link->connect_error);
 }
-require_once "connect.php";
 
+//TODO prepisat do mysqli_...
 $stmt = $link->prepare("UPDATE TestTable SET tCheckpoint = ?, tID = ?, tTime = ? WHERE tName = ?");
 $stmt->bind_param("siss", $point, $IDcheck, $time, $name);
 

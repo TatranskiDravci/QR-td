@@ -1,0 +1,15 @@
+{
+  "expedition":{ "tMeno":"Oktava", "tPrihlasovacieMeno": "oktava", "tHeslo": "oktava" },
+  "QR":[
+    { "dId": "5465465", "dMeno": "Demanovska dolina Autopark", "dSprava": "Vitajte dole!" },
+    { "dId": "4554322", "dMeno": "Demanovska dolina - Hotel Grand", "dSprava": "Good, good." },
+    { "dId": "5654455", "dMeno": "Demanovska dolina - Chopok", "dSprava": "very nice." }
+  ],
+  "History": [
+    { "trQrId": "5465465", "trPoradie": 0 },
+    { "trQrId": "4554322", "trPoradie": 1 },
+    { "trQrId": "5654455", "trPoradie": 2 },
+    { "trQrId": "4554322", "trPoradie": 3 },
+    { "trQrId": "5465465", "trPoradie": 4 }
+  ]
+}
