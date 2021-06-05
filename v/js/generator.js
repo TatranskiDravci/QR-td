@@ -16,11 +16,7 @@ const sendToServer = data => {
 		xhr.responseType = "text";
 		xhr.onload = () => {
 			if(xhr.readyState == xhr.DONE && xhr.status == 200) {
-				if(xhr.response == "err") {
-					reject();
-				} else {
-					resolve(xhr.response);
-				}
+				resolve(xhr.response);
 			}
 		};
 		xhr.send(JSON.stringify(data));
@@ -106,8 +102,8 @@ document.getElementById("download").addEventListener("click", async () => {
 		History: history
 	};
 
-	try {
-		const tId = await sendToServer(data);
+	const response = await sendToServer(data);
+	if(response.slice(0, 9) != "Ospravedl") {
 		$("body").html("<p>Vytváram QR kódy...</p>");
 		for(let i = 0; i < history.length; i++) {
 			let name;
@@ -123,11 +119,11 @@ document.getElementById("download").addEventListener("click", async () => {
 		}
 		zip.generateAsync({ type: "blob" }).then( content => {
 			saveAs(content, expedition.tMeno + ".zip");
-			window.location.href = "/v/index.php?tId=" + encodeURIComponent(tId);
+			window.location.href = "/v/index.php?tId=" + encodeURIComponent(response);
 		});
 		
-	} catch {
-		$("body").html("<p>Niekde nastala chyba</p>");
+	} else {
+		$("body").html("<p>" + response + "</p>");
 	}
 });
 
