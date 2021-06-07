@@ -1,76 +1,60 @@
 QrScanner.WORKER_PATH = "js/qr-scanner/qr-scanner-worker.min.js";
+let scannedId;
 
-let loc = { id: -1 };
+const sendToServer = qr => {
+	// TODO: Implement *this* function
+	// TODO: *this* function **should** postpone the post request until internet is available (in case it's used offline)
+}
 
-const getCookie = name => {
-	name = name + "=";
-	let ca = document.cookie.split(";");
-	for(let i = 0; i < ca.length; i++) {
-		let c = ca[i];
-		while(c.charAt(0) == " ") {
-			c = c.substring(1);
-		}
-		if(c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-};
+const drawTable = qr => {
+	const table = document.getElementById("tableElem");
 
-const updateCookie = location => {
-	document.cookie = "current=" + JSON.stringify(location);
-};
+	let rowName = document.createElement("TR");
+	let colName1 = document.createElement("TH");
+	let colName2 = document.createElement("TD");
 
-const parseCookie = cookie => {
-	return JSON.parse(cookie);
-};
+	colName1.textContent = "Lokalita";
+	colName2.textContent = qr.name;
+	rowName.appendChild(colName1);
+	rowName.appendChild(colName2);
+	table.appendChild(rowName);
 
-const renderCurrent = location => {
-	table = document.getElementById("tableElem");
-	table.innerHTML = "";
+	if("hint" in qr) {
+		let rowHint = document.createElement("TR");
+		let colHint1 = document.createElement("TH");
+		let colHint2 = document.createElement("TD");
 
-	row1 = document.createElement("TR");
-	th1 = document.createElement("TH");
-	th1.innerHTML = "Poloha";
-	td1 = document.createElement("TD");
-	td1.innerHTML = location.name;
-	row1.appendChild(th1);
-	row1.appendChild(td1);
-	table.appendChild(row1);
-
-	if("hint" in location) {
-		row2 = document.createElement("TR");
-		th2 = document.createElement("TH");
-		td2 = document.createElement("TD");
-		th2.innerHTML = "Indícia";
-		td2.innerHTML = location.hint;
-		row2.appendChild(th2);
-		row2.appendChild(td2);
-		table.appendChild(row2);
+		colHint1.textContent = "Správa";
+		colHint2.textContent = qr.hint;
+		rowHint.appendChild(colName1);
+		rowHint.appendChild(colName2);
+		table.appendChild(rowHint);
 	}
 };
 
 const scanner = new QrScanner(
 	document.getElementById("videoElem"),
-	result => {
-		let nloc = JSON.parse(result);
-		if(loc.id != nloc.id) {
-			loc = nloc;
-			console.log(loc);
-			updateCookie(loc);
-			send(loc);
-			renderCurrent(loc);
+	id => {
+		if(id != scannedId) {
+			scannedId = id;
+			const openRequest = indexedDB.open("qrDB", 1);
+			openRequest.onsuccess = () => {
+				const db = openRequest.result;
+				const transaction = db.transaction("QR", "readonly");
+				const QR = transaction.objectStore("QR");
+
+				const request = QR.get(id);
+				request.onsuccess = () => {
+					const result = request.result; 
+					console.log(result);
+					drawTable(result);
+
+					// TODO: implement this:
+					sendToServer(result);
+				};
+			}
 		}
 	}
 );
 
-let current = getCookie("current");
-console.log(current);
-
-if( current == "{}" || current == "" ) {
-	scanner.start();
-} else {
-	loc = parseCookie(current);
-	renderCurrent(loc);
-	scanner.start();
-}
+scanner.start();
