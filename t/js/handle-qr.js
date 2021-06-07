@@ -1,5 +1,4 @@
 QrScanner.WORKER_PATH = "js/qr-scanner/qr-scanner-worker.min.js";
-
 let scannedId;
 
 const sendToServer = qr => {
