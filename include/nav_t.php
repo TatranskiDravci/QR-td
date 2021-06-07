@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="/include/idem.png" alt="IDEM" height="30">
+            <img src="/idem.png" alt="IDEM" height="30">
         </a>
         <button class="navbar-toggler"
                 type="button"
