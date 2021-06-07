@@ -46,6 +46,7 @@ if (empty($err)) {
               $param_dId = $dValue["dId"];
               $param_dMeno = $dValue["dMeno"];
               $param_dSprava = $dValue["dSprava"];
+              mysqli_stmt_execute($stmt);
             }
             else {
               $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní QR kódov. Skúste to znova.";
@@ -53,46 +54,42 @@ if (empty($err)) {
           }
           if (empty($err)) {
             // Add checkpoints
-            if (mysqli_stmt_execute($stmt)) {
-              foreach ($arr["History"] as $trValue) {
-                $sql = "INSERT INTO `TD-Trasy` (`trId`, `trQrId`, `trPoradie`, `trTuSme`) VALUES (?, ?, ?, ?)";
-                if($stmt = mysqli_prepare($conn, $sql)) {
-                  mysqli_stmt_bind_param($stmt, "ssii", $param_trId, $param_trQrId, $param_trPoradie, $param_trTuSme);
-                  $param_trId = bin2hex(random_bytes(32)); //TODO do a new UUID system for checkpoints also
-                  $param_trQrId = $trValue["trQrId"];
-                  $param_trPoradie = $trValue["trPoradie"];
-                  $param_trTuSme = 0;
-                  if (mysqli_stmt_execute($stmt)) {
+            foreach ($arr["History"] as $trValue) {
+              $sql = "INSERT INTO `TD-Trasy` (`trId`, `trQrId`, `trPoradie`, `trTuSme`) VALUES (?, ?, ?, ?)";
+              if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "ssii", $param_trId, $param_trQrId, $param_trPoradie, $param_trTuSme);
+                $param_trId = bin2hex(random_bytes(32)); //TODO do a new UUID system for checkpoints also
+                $param_trQrId = $trValue["trQrId"];
+                $param_trPoradie = $trValue["trPoradie"];
+                $param_trTuSme = 0;
+                if (mysqli_stmt_execute($stmt)) {
 
-                    //Add IDs to connections table
-                    mysqli_stmt_close($stmt);
-                    $sql = "INSERT INTO `TD-TimyTrasy` (`tId`, `trId`) VALUES (?, ?)";
-                    if ($stmt = mysqli_prepare($conn, $sql)) {
-                      mysqli_stmt_bind_param($stmt, "ss", $param_tId, $param_trId);
-                      if (mysqli_stmt_execute($stmt)) {
-                        $err = $param_tId;
-                      } else {
-                        $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní checkpointov. Skúste to znova.";
-                      }
-                      mysqli_stmt_close($stmt);
+                  //Add IDs to connections table
+                  mysqli_stmt_close($stmt);
+                  $sql = "INSERT INTO `TD-TimyTrasy` (`tId`, `trId`) VALUES (?, ?)";
+                  if ($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "ss", $param_tId, $param_trId);
+                    if (mysqli_stmt_execute($stmt)) {
+                      $err = $param_tId;
                     } else {
                       $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní checkpointov. Skúste to znova.";
                     }
-                  }
-                  else {
+                    mysqli_stmt_close($stmt);
+                  } else {
                     $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní checkpointov. Skúste to znova.";
                   }
-                }
-                else {
+                } else {
                   $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní checkpointov. Skúste to znova.";
                 }
+              } else {
+                $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní checkpointov. Skúste to znova.";
               }
             }
-            else {
+          } else {
               $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní QR kódov. Skúste to znova.";
             }
             mysqli_stmt_close($stmt);
-          }
+
         } else {
           $err = "Ospravedlňujeme sa, nastala chyba pri vytváraní expedície. Skúste to znova.";
         }

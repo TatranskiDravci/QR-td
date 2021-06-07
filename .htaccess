@@ -1,3 +1,9 @@
 RewriteEngine On
 RewriteCond %{HTTPS} off [NC]
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,QSA]
+Redirect /expedition/ https://qr.peteriglarcik.eu/t
+Redirect /team/ https://qr.peteriglarcik.eu/t
+Redirect /assessor/ https://qr.peteriglarcik.eu/v
+Redirect /veduci/ https://qr.peteriglarcik.eu/v
+Redirect /rodic https://qr.peteriglarcik.eu/r
+Redirect /parents/ https://qr.peteriglarcik.eu/r
