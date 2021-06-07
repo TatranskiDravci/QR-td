@@ -10,7 +10,7 @@ new Sortable(document.getElementById("table"), {
 const sendToServer = data => {
 	return new Promise( (resolve, reject) => {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "php/getJSON.php")
+		xhr.open("POST", "php/getJSON.php");
 		xhr.setRequestHeader("Content-Type", "application/json");
 	
 		xhr.responseType = "text";

@@ -2,13 +2,60 @@ QrScanner.WORKER_PATH = "js/qr-scanner/qr-scanner-worker.min.js";
 
 let scannedId;
 
+// FIXME: Scuffed solution, should be done through /t/worker.js
 const sendToServer = qr => {
 	// TODO: Implement *this* function
 	// TODO: *this* function **should** postpone the post request until internet is available (in case it's used offline)
-}
+
+	const xhr = new XMLHttpRequest();
+	xhr.open("GET", "php/qrSend.php?trId=" + encodeURIComponent(qr.trId));
+	xhr.send(null);
+};
+
+// FIXME: Scuffed solution, should be done through /t/worker.js
+const fetchFromServer = () => {
+	const openRequest = indexedDB.open("qrDB", 1);
+
+	openRequest.onupgradeneeded = () => {
+		const db = openRequest.result;
+		if (!db.objectStoreNames.contains('QR')) {
+			db.createObjectStore('QR', {keyPath: 'id'});
+			console.log("create IDB");
+		}
+	};
+
+	openRequest.onsuccess = () => {
+		const db = openRequest.result;
+		db.transaction("QR", "readwrite").objectStore("QR").clear();
+		console.log("clear IDB");
+
+		const xhr = new XMLHttpRequest();
+		xhr.open("GET", "php/qrRequest.php");
+		
+		xhr.responseType = "text";
+		xhr.onload = () => {
+			if(xhr.readyState == xhr.DONE && xhr.status == 200) {
+				const qrs = JSON.parse(xhr.response);
+				for(qr of qrs) {
+					console.log("load to IDB");
+					const transaction = db.transaction("QR", "readwrite");
+					transaction.objectStore("QR").add({
+						id: qr.trQrId,
+						name: qr.dMeno,
+						hint: qr.dSprava,
+						trId: qr.trId,
+						trPlace: qr.trPoradie
+					});
+				}
+			}
+		};
+		xhr.send(null);
+	};
+};
 
 const drawTable = qr => {
 	const table = document.getElementById("tableElem");
+	table.innerHTML = "";
 
 	let rowName = document.createElement("TR");
 	let colName1 = document.createElement("TH");
@@ -20,15 +67,15 @@ const drawTable = qr => {
 	rowName.appendChild(colName2);
 	table.appendChild(rowName);
 
-	if("hint" in qr) {
+	if(qr.hint != null) {
 		let rowHint = document.createElement("TR");
 		let colHint1 = document.createElement("TH");
 		let colHint2 = document.createElement("TD");
 
 		colHint1.textContent = "Správa";
 		colHint2.textContent = qr.hint;
-		rowHint.appendChild(colName1);
-		rowHint.appendChild(colName2);
+		rowHint.appendChild(colHint1);
+		rowHint.appendChild(colHint2);
 		table.appendChild(rowHint);
 	}
 };
@@ -49,8 +96,6 @@ const scanner = new QrScanner(
 					const result = request.result; 
 					console.log(result);
 					drawTable(result);
-
-					// TODO: implement this:
 					sendToServer(result);
 				};
 			}
@@ -58,4 +103,5 @@ const scanner = new QrScanner(
 	}
 );
 
+fetchFromServer();
 scanner.start();
