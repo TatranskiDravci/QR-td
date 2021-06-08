@@ -1,5 +1,7 @@
 QrScanner.WORKER_PATH = "js/qr-scanner/qr-scanner-worker.min.js";
 let scannedId;
+let scanner;
+
 
 // FIXME: Scuffed solution, should be done through /t/worker.js
 const sendToServer = qr => {
@@ -79,28 +81,42 @@ const drawTable = qr => {
 	}
 };
 
-const scanner = new QrScanner(
-	document.getElementById("videoElem"),
-	id => {
-		if(id != scannedId) {
-			scannedId = id;
-			const openRequest = indexedDB.open("qrDB", 1);
-			openRequest.onsuccess = () => {
-				const db = openRequest.result;
-				const transaction = db.transaction("QR", "readonly");
-				const QR = transaction.objectStore("QR");
-
-				const request = QR.get(id);
-				request.onsuccess = () => {
-					const result = request.result; 
-					console.log(result);
-					drawTable(result);
-					sendToServer(result);
-				};
-			}
-		}
-	}
-);
+const closeScanner = () => {
+	console.log("hide");
+	document.getElementById("qrButtonDiv").style.display = "";
+	document.getElementById("qrScannerDiv").style.display = "none";
+	scanner.destroy();
+};
 
 fetchFromServer();
-scanner.start();
+
+document.getElementById("buttonElem").addEventListener("click", () => {
+	console.log("show");
+	document.getElementById("qrButtonDiv").style.display = "none";
+	document.getElementById("qrScannerDiv").style.display = "";
+	scanner = new QrScanner(
+		document.getElementById("videoElem"),
+		id => {
+			if(id != scannedId) {
+				scannedId = id;
+				const openRequest = indexedDB.open("qrDB", 1);
+				openRequest.onsuccess = () => {
+					const db = openRequest.result;
+					const transaction = db.transaction("QR", "readonly");
+					const QR = transaction.objectStore("QR");
+	
+					const request = QR.get(id);
+					request.onsuccess = () => {
+						const result = request.result; 
+						console.log(result);
+						drawTable(result);
+						sendToServer(result);
+						closeScanner();
+					};
+				}
+			}
+		}
+	);
+	scanner.start();
+});
+

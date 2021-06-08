@@ -19,10 +19,17 @@ require_once "php/logged.php";
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" id="qrScannerDiv" style="display: none;">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
                     <video id="videoElem"></video>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="qrButtonDiv">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                <button class="btn btn-primary" id="buttonElem">Otvoriť QR skener</button>
                 </div>
             </div>
         </div>
