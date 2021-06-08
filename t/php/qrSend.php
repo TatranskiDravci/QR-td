@@ -9,8 +9,6 @@ if($conn === false) {
   die('Connect Error: ' . mysqli_connect_error());
 }
 
-$err = "";
-
 session_start();
 $tId = $_SESSION("tId");
 $trId = $_GET["trId"];
@@ -19,24 +17,23 @@ if (!empty(trim($trId))) {
     UPDATE `TD-TimyTrasy`
     INNER JOIN `TD-Trasy` ON `TD-TimyTrasy`.`trId` = `TD-Trasy`.`trId`
     SET `TD-Trasy`.`trTuSme` = 0
-    WHERE `TD-TimyTrasy`.`tId` = '" . $tId . "'";
+    WHERE `TD-TimyTrasy`.`tId` = ?";
   if ($stmt = mysqli_prepare($conn, $sql)) {
-    mysqli_stmt_bind_param($stmt, "i", $param_tId);
-    $param_tId = 0;
+    mysqli_stmt_bind_param($stmt, "s", $tId);
 
     if (mysqli_stmt_execute($stmt)) {
       mysqli_stmt_close($stmt);
       $sql = "
       UPDATE `TD-Trasy` 
       SET `TD-Trasy`.`trTuSme` = ?, `TD-Trasy`.`trTimeSubmited` = ?, `TD-Trasy`.`trTimeUploaded` = ? 
-      WHERE `TD-Trasy`.`trId` = '" . $trId . "'";
+      WHERE `TD-Trasy`.`trId` = ?";
 
       if ($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, "iss", $param_trTuSme, $param_trTimeSubmited, $param_trTimeUploaded);
+        mysqli_stmt_bind_param($stmt, "isss", $param_trTuSme, $param_trTimeSubmited, $param_trTimeUploaded, $trId);
 
         $param_trTuSme = 1;
-        $param_trTimeSubmited = date(d-m-Y H:i:s);
-        $param_trTimeUploaded = date(d-m-Y H:i:s);
+        $param_trTimeSubmited = date("d-m-Y H:i:s");
+        $param_trTimeUploaded = date("d-m-Y H:i:s");
 
         // Add IDs to connections table
         if (mysqli_stmt_execute($stmt)) {
