@@ -1,21 +1,23 @@
-const timeline = document.getElementById("timeline");
 let tId = window.location.search.slice(5,);
+const timeline = document.getElementById(tId);
 
 const update = setInterval( () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open("GET", "php/table.php?tId=" + encodeURI(tId), true)
 
+
 	xhr.responseType = "text";
 	xhr.onload = () => {
 		if(xhr.readyState == xhr.DONE && xhr.status == 200) {
-			timeline.innerHTML = xhr.response;
+			timeline.children[0].innerHTML = xhr.response;
 		}
 	};
 
 	xhr.send(null);
-}, 10000);
+}, 3000);
 
 window.addEventListener("DOMContentLoaded", () => {
+	timeline.style.display = "";
 	if(tId != "") {
 		const xhr = new XMLHttpRequest();
 		xhr.open("GET", "php/table.php?tId=" + encodeURI(tId), true)
@@ -23,7 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		xhr.responseType = "text";
 		xhr.onload = () => {
 			if(xhr.readyState == xhr.DONE && xhr.status == 200) {
-				timeline.innerHTML = xhr.response;
+				timeline.children[0].innerHTML = xhr.response;
 			}
 		};
 

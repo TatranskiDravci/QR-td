@@ -26,6 +26,18 @@ require_once "php/logged.php";
                 </div>
             </div>
         </div>
+        <div class="container text-center">
+            <h4 id="location"></h4>
+            <h5 id="hint"></h5>
+            <!-- <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">Raňajkovali ste dnes?</h5>
+                    <button class="btn btn-primary answer">Áno</button> <button class="btn btn-danger answer">Nie</button>
+                </div>
+            </div> -->
+        </div>
         <div class="container" id="qrButtonDiv">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
@@ -33,18 +45,20 @@ require_once "php/logged.php";
                 </div>
             </div>
         </div>
-        <div class="container">
+
+
+        <!-- <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-10">
                     <p id="distance"></p>
                     <table class="table table-bordered">
-                        <tbody id="tableElem">
-                            <!-- TODO cookies sa ukladaju samostatne a ked sa odhlasim a prihlasim tak sa nevymazu -->
+                        <tbody id="tableElem"> -->
+                            <!-- TODO cookies sa ukladaju samostatne a ked sa odhlasim a prihlasim tak sa nevymazu
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 		<script src="/t/js/qr-scanner/qr-scanner.umd.min.js"></script>
         <script src="js/handle.js"></script>

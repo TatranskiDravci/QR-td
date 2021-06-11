@@ -63,7 +63,9 @@ require_once "php/logged.php";
             <div class="row">
                 <div class="col-12">
                     <div class="wrapper col-12 offset-md-2 col-md-8 text-center gx-5">
-                        <div class="list-group col" id="table">
+                        <div class="mb-3 text-start">
+                            <div class="list-group col" id="table">
+                            </div>
                         </div>
                         <div class="text-end">
                             <button class="btn btn-primary" id="download" style="display: none;">Stiahnúť</button>

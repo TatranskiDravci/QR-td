@@ -55,43 +55,46 @@ const fetchFromServer = () => {
 };
 
 const drawTable = qr => {
-	const table = document.getElementById("tableElem");
-	table.innerHTML = "";
-
-	let rowName = document.createElement("TR");
-	let colName1 = document.createElement("TH");
-	let colName2 = document.createElement("TD");
-
-	colName1.textContent = "Lokalita";
-	colName2.textContent = qr.name;
-	rowName.appendChild(colName1);
-	rowName.appendChild(colName2);
-	table.appendChild(rowName);
+	const location = document.getElementById("location");
+	location.innerHTML = qr.name;
 
 	if(qr.hint != null) {
-		let rowHint = document.createElement("TR");
-		let colHint1 = document.createElement("TH");
-		let colHint2 = document.createElement("TD");
-
-		colHint1.textContent = "Správa";
-		colHint2.textContent = qr.hint;
-		rowHint.appendChild(colHint1);
-		rowHint.appendChild(colHint2);
-		table.appendChild(rowHint);
+		const hint = document.getElementById("hint");
+		hint.innerHTML = qr.name;
 	}
+
+	// let rowName = document.createElement("TR");
+	// let colName1 = document.createElement("TH");
+	// let colName2 = document.createElement("TD");
+
+	// colName1.textContent = "Lokalita";
+	// colName2.textContent = ;
+	// rowName.appendChild(colName1);
+	// rowName.appendChild(colName2);
+	// table.appendChild(rowName);
+
+	// if(qr.hint != null) {
+	// 	let rowHint = document.createElement("TR");
+	// 	let colHint1 = document.createElement("TH");
+	// 	let colHint2 = document.createElement("TD");
+
+	// 	colHint1.textContent = "Správa";
+	// 	colHint2.textContent = qr.hint;
+	// 	rowHint.appendChild(colHint1);
+	// 	rowHint.appendChild(colHint2);
+	// 	table.appendChild(rowHint);
+	// }
 };
 
 const closeScanner = () => {
-	console.log("hide");
-	document.getElementById("qrButtonDiv").style.display = "";
 	document.getElementById("qrScannerDiv").style.display = "none";
+	document.getElementById("qrButtonDiv").style.display = "";
 	scanner.destroy();
 };
 
 fetchFromServer();
 
 document.getElementById("buttonElem").addEventListener("click", () => {
-	console.log("show");
 	document.getElementById("qrButtonDiv").style.display = "none";
 	document.getElementById("qrScannerDiv").style.display = "";
 	scanner = new QrScanner(
@@ -119,4 +122,3 @@ document.getElementById("buttonElem").addEventListener("click", () => {
 	);
 	scanner.start();
 });
-
