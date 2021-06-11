@@ -19,17 +19,39 @@ WHERE `TD-TimyTrasy`.`tId` = '" . $tId . "'
 ORDER BY `TD-Trasy`.`trPoradie`";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
+  echo '<thead>
+<tr>
+  <th scope="col">Stanovisko</th>
+  <th scope="col">Čas naskenovania</th>
+  <th scope="col">Stav úlohy</th>
+</tr>
+</thead><tbody>';
   while ($row = mysqli_fetch_array($result)) {
-    echo '<div class="containerT right">
-              <div class="contentT">
-                   <h2>' . $row['dMeno'] . '</h2>
-                   <p>' . $row['dSprava'] . '<br>' . $row['trTimeSubmited'] . '</p>
-              </div>
-          </div>';
+    if ($row['trTuSme'] == 1) {
+      $bodl = "noeHere";
     }
+    else {
+      $bodl = "";
+    }
+    echo '
+<tr>
+  <th scope="row" class="'. $bodl . '">' . $row['dMeno'] . '</th>
+  <td>' . $row['trTimeSubmited'] . '</td>
+  <td>' . $row['stav'] . '</td>
+</tr>';
+    }
+    echo '</tbody>';
 } else {
   echo "Nebol pridaný tím. Pridajte tím stlačením tlačidla vyššie.";
 }
 mysqli_free_result($result);
 mysqli_close($conn);
 
+/*
+?>
+
+<!--
+<tr>
+  <th class="noeHere" scope="row">Trete stanovisko</th>
+  <td colspan="2">Čaká sa na tím</td>
+</tr>-->

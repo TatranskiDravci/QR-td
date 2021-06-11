@@ -10,7 +10,7 @@ if($conn === false) {
 }
 
 session_start();
-$tId = $_SESSION("tId");
+$tId = $_SESSION["tId"];
 $trId = $_GET["trId"];
 if (!empty(trim($trId))) {
   $sql = "
@@ -25,15 +25,16 @@ if (!empty(trim($trId))) {
       mysqli_stmt_close($stmt);
       $sql = "
       UPDATE `TD-Trasy` 
-      SET `TD-Trasy`.`trTuSme` = ?, `TD-Trasy`.`trTimeSubmited` = ?, `TD-Trasy`.`trTimeUploaded` = ? 
+      SET `TD-Trasy`.`trTuSme` = ?, `TD-Trasy`.`trTimeSubmited` = ?, `TD-Trasy`.`trTimeUploaded` = ?, `TD-Trasy`.`stav` = ?
       WHERE `TD-Trasy`.`trId` = ?";
 
       if ($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, "isss", $param_trTuSme, $param_trTimeSubmited, $param_trTimeUploaded, $trId);
+        mysqli_stmt_bind_param($stmt, "issss", $param_trTuSme, $param_trTimeSubmited, $param_trTimeUploaded, $param_stav, $trId);
 
         $param_trTuSme = 1;
         $param_trTimeSubmited = date("d-m-Y H:i:s");
         $param_trTimeUploaded = date("d-m-Y H:i:s");
+        $param_stav = "Načítané";
 
         // Add IDs to connections table
         if (mysqli_stmt_execute($stmt)) {
